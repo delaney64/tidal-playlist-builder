@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# TIDAL session cache — this is a credential, never commit it
+.tidal_session.json
+
+# Personal playlist CSVs and generated review reports — keep your music data
+# out of the repo. The format example under examples/ is kept on purpose.
+*.csv
+!examples/*.csv

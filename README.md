@@ -17,34 +17,54 @@ any CSV that has `Artist` and `Track` columns.
 - **Safe to re-run.** Dedups within a run, chunks adds to TIDAL's 100-per-call limit, and won't create an empty playlist.
 - **Dry-run mode** to preview match quality before anything is created.
 
-## Install
+## Setup
+
+You need an active TIDAL subscription (the API requires a logged-in account) and
+Python 3.9+.
+
+Use a project virtualenv so dependencies don't land in your system Python:
 
 ```bash
-pip install -e .
-# or just the dependency, and run the script directly:
-pip install -r requirements.txt
+cd /path/to/csv-tidal
+python3 -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install -e .                   # installs tidalapi + the `tidal-playlist-builder` command
 ```
 
-This installs a `tidal-playlist-builder` command. You need an active TIDAL
-subscription (the API requires a logged-in account).
+`pip install -e .` gives you both the dependency and the console command. If you
+just want to run the script directly, `pip install -r requirements.txt` is enough.
+
+**Interpreter gotcha:** the most common "tidalapi not installed" error is installing
+into a different Python than the one running the script. Install into the *exact*
+interpreter with `</path/to/python> -m pip install tidalapi` rather than a bare `pip`.
+In **PyCharm**, point the project interpreter at the venv: **Settings → Project →
+Python Interpreter → Add Interpreter → Existing → select `.venv/bin/python`**. Then the
+Run button uses the venv.
+
+When running from PyCharm's Run button, pass the CSV via **Run → Edit Configurations →
+Parameters** (e.g. `playlist.csv --dry-run`) and set **Working directory** to the
+project root so the relative path resolves.
 
 ## Usage
 
+Drop your own CSV in the project root (e.g. `playlist.csv`). Personal CSVs are
+gitignored, so your music data stays out of the repo.
+
 ```bash
 # Simplest: playlist name is taken from the CSV's "Playlist" column
-tidal-playlist-builder mylist.csv
+tidal-playlist-builder playlist.csv
 
 # Preview matches without creating anything
-tidal-playlist-builder mylist.csv --dry-run
+tidal-playlist-builder playlist.csv --dry-run
 
 # Override the playlist name; force a fresh login
-tidal-playlist-builder mylist.csv --name "Summer 2026" --no-cache
+tidal-playlist-builder playlist.csv --name "Summer 2026" --no-cache
 ```
 
-Or without installing:
+Or without installing the console command:
 
 ```bash
-python3 tidal_playlist_builder.py mylist.csv
+python3 tidal_playlist_builder.py playlist.csv
 ```
 
 ### Options
