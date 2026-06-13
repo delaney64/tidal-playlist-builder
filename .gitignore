@@ -9,6 +9,14 @@ dist/
 venv/
 env/
 
+# macOS
+.DS_Store
+
+# IDEs / editors (PyCharm, VS Code, vim swap files)
+.idea/
+.vscode/
+*.swp
+
 # TIDAL session cache — this is a credential, never commit it
 .tidal_session.json
 
