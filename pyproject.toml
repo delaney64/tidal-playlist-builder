@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tidal-playlist-builder"
+version = "1.0.0"
+description = "Build a TIDAL playlist from a CSV of artists and tracks."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Delaney Scarangella" }]
+keywords = ["tidal", "playlist", "csv", "music", "cli"]
+dependencies = ["tidalapi>=0.8.11"]
+
+[project.urls]
+Homepage = "https://github.com/delaney64/tidal-playlist-builder"
+
+[project.scripts]
+tidal-playlist-builder = "tidal_playlist_builder:main"
+
+[tool.setuptools]
+py-modules = ["tidal_playlist_builder"]
